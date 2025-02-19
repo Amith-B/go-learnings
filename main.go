@@ -5,6 +5,11 @@ import (
 	"strconv"
 )
 
+type Person struct {
+	firstName string
+	lastName  string
+}
+
 func main() {
 	var (
 		val    string = "Amith B"
@@ -137,6 +142,25 @@ func main() {
 	}
 
 	printData(&crlAr)
+
+	p := Person{}
+	p.updateFirstName("Amith").updateLastName("B")
+	// both are same, go has a shortcut to pointer for receiver functions, if we pass value directly it converts to pointer type if the type is pointer type
+	// p.updateFirstName("Amith").updateLastName("B")
+	// (&p).updateFirstName("Amith").updateLastName("B")
+	fmt.Printf("%+v", p)
+}
+
+func (p *Person) updateFirstName(updatedName string) *Person {
+	(*p).firstName = updatedName
+
+	return p
+}
+
+func (p *Person) updateLastName(updatedName string) *Person {
+	(*p).lastName = updatedName
+
+	return p
 }
 
 // func  <receiver> <functionName> returnType
